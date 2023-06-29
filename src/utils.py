@@ -53,18 +53,7 @@ class plot(object):
         ax = fig.add_subplot(111, projection='3d')
 
         ax.scatter(feasible_x, feasible_y, feasible_z, c='lightgreen', alpha=0.1)
-        # -----------
-        #z1 = 1-xx-yy
-        #x1 = np.zeros_like(xx)
-        #y1 = np.zeros_like(yy)
-        #z2 = np.zeros_like(zz)
-
-        
-        #plt.plot(xx, yy, z1, color='blue', linewidth=1, linestyle='--', label='y ≥ -x + 1')
-        #plt.plot(x1, yy, zz, color='purple', linewidth=1, linestyle='--', label='y ≤ 1')
-        #plt.plot(xx, y1, zz, color='pink', linewidth=1, linestyle='--', label='x ≤ 2')
-        #plt.plot(xx, yy, z2, color='orange', linewidth=1, linestyle='--', label='y ≥ 0')
-        # ---------------
+       
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_zlabel('Z')
@@ -141,47 +130,10 @@ class plot(object):
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         plt.legend()
-        #plt.grid(True)
-        plt.show()
-
-    """
-    def path_lp(self, path_lists):
-        
-        This function plot the path of a minimization algorthims on the contours of a given function
-        Parameters
-        ------------
-        path_lists : np.ndarray 
-            an array that contain the path array for each meathod
-        
-        # Create x and y coordinate arrays
-        xx = np.linspace(-1, 3, 100)
-        yy = np.linspace(-2, 2, 100)
-        X, Y = np.meshgrid(xx , yy)
-        
-        
-        # Feasible region
-
-        # ---- 1
-        y1 = -xx + 1
-        y2 = np.ones_like(xx)
-        y3 = np.zeros_like(xx)
-        x = np.full_like(yy, 2)
-
-        
-        plt.plot(xx, y1, color='blue', linewidth=1, linestyle='--', label='y ≥ -x + 1')
-        plt.plot(xx, y2, color='blue', linewidth=1, linestyle='--', label='y ≤ 1')
-        plt.plot(x, yy, color='blue', linewidth=1, linestyle='--', label='x ≤ 2')
-        plt.plot(xx, y3, color='blue', linewidth=1, linestyle='--', label='y ≥ 0')
-        
-        plt.imshow( ((Y >= 0) & (Y <= 1) & (X <= 2) & (Y>= -X + 1)) , 
-                extent=(X.min(),X.max(),Y.min(),Y.max()), origin="lower", cmap="Greys", alpha = 0.2)
-
     
-
-        # Display the plot
-        plt.legend()
         plt.show()
-    """
+
+
        
     
     def iteration(self, values_lists):

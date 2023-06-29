@@ -153,7 +153,7 @@ class interior_pt(object):
         f_x_0 = self.log_barrier(t,f,phi,x_0)[0]
         f_x = [f_x_0] # list of function value at the location isited 
         p = None # direction to visit
-        print(" ----- Newton Method ----- ")
+    
         for i in range(max_iter):
             if  distance_check < param_tol or np.abs(stop_check) < obj_tol: # Checking distance between 2 last locations
                 # Up the status flag in case we reached a minimum by distance stopping condition
@@ -339,7 +339,7 @@ class interior_pt(object):
 
     def minimize(self):
 
-        print("************ Log-barrier Algorithm **********")
+        print("************ interior point Algorithm **********")
         t = 1
         m = self.ineq_constraints.shape[0]
         A = self.eq_constraints_mat
@@ -348,13 +348,8 @@ class interior_pt(object):
         f_x = [self.func(self.x_0)[0]]
         i=0
         mu = 10
-        #while t==1:
+    
         while (m/t) >= self.eps:
-
-            print("> Iteration ",i,":")
-            print("     - location :",x[-1])
-            print("     - f(x)     :",f_x[-1])
-
             
             if isinstance(self.eq_constraints_mat, np.ndarray):
 

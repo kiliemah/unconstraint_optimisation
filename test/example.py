@@ -4,6 +4,15 @@ import numpy as np
 class qp(object):
     """
     Quadratic optimization
+
+    Returned values :
+    ---------------- 
+
+        - A :  equality constrain matrix
+        - b : equality constraints right side vector
+        - inequality : array of inequality constrains functions
+        - func : Function to optimize
+        
     """
     def __init__(self, X=np.array([0,0,0])) -> None:
         self.X = X
@@ -82,6 +91,13 @@ class lp(object):
 
     """
     Linear programming
+
+    Returned values :
+    ---------------- 
+
+        - inequality : array of inequality constrains functions
+        - func : Function to optimize
+        
     """
 
     def __init__(self, X = np.array([0,0])) -> None:
