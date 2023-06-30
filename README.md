@@ -1,2 +1,2 @@
 # unconstraint_optimisation
-implementation of log barrier algorithm
+implementation of interior point algorithm
