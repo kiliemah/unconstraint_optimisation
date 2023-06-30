@@ -114,7 +114,7 @@ class lp(object):
         x = X[0]
         y = X[1]
 
-        f = - (x+y) # to minimize
+        f =  - (x+y) # to minimize
         g = np.array([-1,
                       -1]) 
         H = np.array([[0,0],

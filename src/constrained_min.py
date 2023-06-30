@@ -196,80 +196,11 @@ class interior_pt(object):
         return np.array([final_x, final_f_x, x_path, f_path_loc, status])
     
 
-    def Newton_unconstraint(self, t,f,phi, x_0, obj_tol, param_tol, max_iter, c_1, back, A, b):
-        
-
-        def find_step(x, f_i, g_i, p):
-            """
-            function that compute the next location according the wolf condition
-
-            Paratmeters
-            -----------
-            x : current location
-            f_i : f at the current location x
-            p : found direction
-            g_i :  gradient at the current location i
-            alpha_space : np.ndarray where values are between 0 and 1
-            
-            return 
-            -----------
-            x_step : next location to investigate
-            """
-            alpha = 1
-            while True:
-                x_step = x + alpha * p
-                f_x_step = self.log_barrier(t,f,phi,x_step)[0]
-                wolf_cond_1 = f_i + (c_1 * alpha * np.dot(g_i, p))
-                if f_x_step <=  wolf_cond_1 :
-                    return x_step, f_x_step
-                alpha = back * alpha
-
-
-        status = False
-        stop_check = 1000 # init objectif tolerence stopping condition
-        distance_check = 1000 # init distance tolerence stopping condition 
-        x = [x_0] # list locations visited
-        f_x_0 = self.log_barrier(t,f,phi,x_0)[0]
-        f_x = [f_x_0] # list of function value at the location isited 
-        p = None # direction to visit
-        for i in range(max_iter):
-
-            if  distance_check < param_tol or np.abs(stop_check) < obj_tol: # Checking distance between 2 last locations
-                # Up the status flag in case we reached a minimum by distance stopping condition
-                status = True
-                break
-            else :
-                g, H = self.log_barrier(t,f,phi,x[-1])[1:]
-                print(H)
-                try:
-                    p = np.linalg.solve(H, -g)
-                except:
-                    break
-                    
-                    
-                # Newton decrement stopping condition
-                newton_dcr = (-1/2) * np.dot(np.dot(p,H),p)
-                if newton_dcr < self.obj_tol:
-                    break
-
-                next_x, f_next_x = find_step(x[-1], f_x[-1], g, p)
-                print(next_x)
-                x.append(next_x)
-                f_x.append(f_next_x)
-                stop_check = np.abs(f_x[-1] - f_x[-2])
-                distance_check = np.linalg.norm(x[-1] - x[-2])
-
-        final_x = x[-1]
-        final_f_x = f(x[-1])[0]  # value of the true objectiv function
-        x_path = np.array(x)
-        f_path_loc = np.array(f_x) # Inner path of newton method for log barrier function
-        return np.array([final_x, final_f_x, x_path, f_path_loc, status], dtype=object)
     
-            
     
     def GD(self, t,f,phi, x_0, obj_tol, param_tol, max_iter, c_1, back, A, b):
         """
-        This function compute the minimimun ot the function according gradient descent method
+        This function compute the unconstraint minimimun ot the function according gradient descent method
         It update the corresponding attribute 
 
             self.path 
@@ -334,8 +265,8 @@ class interior_pt(object):
         x_path = np.array(x)
         f_path_loc = np.array(f_x) # Inner path of newton method for log barrier function
         return np.array([final_x, final_f_x, x_path, f_path_loc, status], dtype=object)
-    
-        
+       
+
 
     def minimize(self):
 
